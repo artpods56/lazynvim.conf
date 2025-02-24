@@ -60,3 +60,6 @@ vim.keymap.set(
 )
 
 vim.keymap.set("i", "jk", "<esc>")
+
+vim.keymap.set("v", "<localleader>c", '"+y')
+vim.keymap.set("v", "<locallleader>cc", '"+yy')
