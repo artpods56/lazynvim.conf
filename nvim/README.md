@@ -1,51 +1,53 @@
-### LazyVim Starter (Lean)
+### My LazyVim config
 
-This is a clean, documented LazyVim setup you can use as a solid base. It trims unused plugins and avoids common pitfalls (like colorscheme + bufferline highlight issues).
+This is my own lazyvim config that im using right now.
 
-#### Install
+#### Neovim Manager - [bob](https://github.com/MordechaiHadad/bob)
+Im personaly a big fan of bob, it manages my neovim installation really well.
 
-1) Backup your current config and link/copy this folder to `~/.config/nvim`.
+Im usually working on MacOS/Linux but the installation process should be fairly similiar, you should probably check bob's readme anyway.
 
 ```bash
-mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null || true
-cp -r /workspace/nvim ~/.config/nvim
+wget https://github.com/MordechaiHadad/bob/releases/download/v4.1.2/bob-macos-x86_64.zip
+unzip -j bob-macos-x86_64.zip
+chmod +x bob
+mv bob ~/.local/bin/
+bob
 ```
 
-2) Start Neovim. Lazy will bootstrap itself automatically.
+#### Neovim Installation
+This is fairly easy, just run `bob install stable` at it will download, install and configure the neovim for you.
+You will probably have to create some blank files in `~/.config` directory, just read the logs.
+
+#### Applying Configuration
+Remember to backup your current config because this from now on, anything can happen.
+These steps assumes that you moved your nvim config from the `~/.config` directory.
+
+```bash
+cd ~/.config
+git clone https://github.com/artpods56/lazynvim.conf
+mv lazyvim.conf nvim
+```
+
+All done, LazyVim should bootstrap itself and load all the plugins.
 
 #### Structure
 
 ```
 ~/.config/nvim
-├── init.lua                  # sets leaders and loads lazy
+├── init.lua                 # sets leaders and loads lazy
 ├── lua
 │   ├── config
-│   │   ├── lazy.lua          # bootstrap lazy.nvim + plugin spec imports
-│   │   ├── options.lua       # core editor options
-│   │   ├── keymaps.lua       # minimal base keymaps
-│   │   └── autocmds.lua      # small generic autocmds
-│   └── plugins               # your plugin specs (one concern per file)
+│   │   ├── lazy.lua         # bootstrap lazy.nvim + plugin spec imports
+│   │   ├── options.lua       # editor options
+│   │   ├── keymaps.lua       # base keymaps
+│   │   └── autocmds.lua      # generic autocmds
+│   └── plugins              # plugin specs 
 │       ├── core.lua          # colorscheme and LazyVim opts
-│       ├── ui.lua            # bufferline, lualine, theme plugin
-│       └── disabled.lua      # plugins disabled explicitly
+│       ├── ui.lua            # theme plugins
+│       └── disabled.lua      # disabled plugins
 └── README.md
 ```
-
-#### Why this fixes your startup error
-
-LazyVim’s built‑in `colorscheme.lua` sometimes overrides bufferline highlights in ways that break when themes/plugins change. This starter provides a minimal `bufferline` config and loads a theme plugin explicitly, avoiding the problematic highlight mutation path.
-
-#### Best practices
-
-- **One concern per file**: put each feature or plugin family in its own spec file in `lua/plugins/`.
-- **Prefer `opts` over imperative config**: supply options tables; avoid calling setup twice.
-- **Disable unused plugins**: use `lua/plugins/disabled.lua` with `{ name, enabled = false }` so Lazy keeps a clear record and you can re‑enable later.
-- **Keep base config small**: general maps/options/autocmds only. Feature-specific settings live with their plugins.
-- **Pin, then update intentionally**: keep `lazy-lock.json` in Git; update with `:Lazy sync` when you choose.
-- **Test incrementally**: add one plugin at a time, start Neovim, and check `:checkhealth` and `:messages`.
-- **Name consistently**: files like `ui.lua`, `lsp.lua`, `git.lua`, `coding.lua`, `tools.lua`.
-- **Project overrides**: use a trusted `.lazy.lua` in a project root for local tweaks without touching global config.
-
 #### Common tasks
 
 - Add a plugin:
