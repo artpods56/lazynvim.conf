@@ -1,23 +1,10 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
+-- Entry point for Neovim using LazyVim
+-- Keeps this repo self-contained and easy to expand.
+
+-- Leader must be set before loading lazy.nvim
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+-- Load core options/keymaps/autocmds and bootstrap lazy.nvim
 require("config.lazy")
 
-vim.cmd([[
-  highlight Normal guibg=none
-  highlight NonText guibg=none
-  highlight Normal ctermbg=none
-  highlight NonText ctermbg=none
-]])
-
-local function copy(lines, _)
-  require("osc52").copy(table.concat(lines, "\n"))
-end
-
-local function paste()
-  return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
-end
-
-vim.g.clipboard = {
-  name = "osc52",
-  copy = { ["+"] = copy, ["*"] = copy },
-  paste = { ["+"] = paste, ["*"] = paste },
-}

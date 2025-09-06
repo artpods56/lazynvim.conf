@@ -1,15 +1,13 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options her
+-- Core editor options. Keep these minimal and sane.
 
-vim.g.mapleader = " "
+local opt = vim.opt
 
--- LSP Server to use for Python.
--- Set to "basedpyright" to use basedpyright instead of pyright.
-vim.g.lazyvim_python_lsp = "pyright"
--- Set to "ruff_lsp" to use the old LSP implementation version.
-vim.g.lazyvim_python_ruff = "ruff"
+opt.number = true
+opt.relativenumber = true
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.termguicolors = true
 
--- molten.nvim
-
-vim.g.python3_host_prog = "/opt/anaconda3/envs/molten/bin/python3"
