@@ -53,4 +53,40 @@ return {
 		},
 		config = true,
 	},
+
+	--- Clipboard
+	{
+		"ojroques/nvim-osc52",
+		config = function()
+			require("osc52").setup({
+				max_length = 0, -- no limit on copy length
+				silent = false, -- print a message after copying
+				trim = true, -- trim whitespace
+				tmux_passthrough = true, -- allow OSC52 through tmux (see tmux config)
+			})
+			-- Key mappings (example: <leader>y to copy via OSC52)
+			vim.keymap.set("n", "<leader>y", require("osc52").copy_operator, {
+				expr = true,
+				desc = "Copy text to system clipboard via OSC52",
+			})
+			vim.keymap.set("n", "<leader>Y", "<leader>y_", {
+				remap = true,
+				desc = "Copy current line to system clipboard via OSC52",
+			})
+			vim.keymap.set("v", "<leader>y", require("osc52").copy_visual, {
+				desc = "Copy selection to system clipboard via OSC52",
+			})
+		end,
+	},
+	{
+		"aserowy/tmux.nvim",
+
+		config = function()
+			return require("tmux").setup({
+				copy_sync = {
+					enable = false,
+				},
+			})
+		end,
+	},
 }
